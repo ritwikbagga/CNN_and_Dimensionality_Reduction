@@ -13,6 +13,7 @@ class ConvNet(nn.Module):
     def __init__(self):
         super(ConvNet, self).__init__()
         # TODO: define the layers of the network
+        #initialise here
 
     def forward(self, x):
         # TODO: define the forward pass of the network using the layers you defined in constructor
