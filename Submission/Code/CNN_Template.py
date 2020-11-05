@@ -20,6 +20,7 @@ class ConvNet(nn.Module):
 
 
 def train(model, device, train_loader, optimizer, epoch):
+    #train here
     model.train()
     correct = 0
     for batch_idx, (data, target) in enumerate(train_loader):
