@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import datasets, transforms
-
+import matplotlib.pyplot as plt
 import numpy as np
 import torch.utils.data as utils
 
@@ -12,8 +12,9 @@ import torch.utils.data as utils
 class ConvNet(nn.Module):
     def __init__(self):
         super(ConvNet, self).__init__()
-        # TODO: define the layers of the network
         #initialise here
+
+
 
     def forward(self, x):
         # TODO: define the forward pass of the network using the layers you defined in constructor
@@ -87,17 +88,26 @@ def main():
 
     model = ConvNet().to(device)
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
-
+    train_acc_list = []
+    test_acc_list = []
+    epoch_list= []
     for epoch in range(NumEpochs):
+        epoch_list.append(epoch)
         train_acc = train(model, device, train_loader, optimizer, epoch)
+        train_acc_list.append(train_acc)
         print('\nTrain set Accuracy: {:.1f}%\n'.format(train_acc))
         test_acc = test(model, device, test_loader)
         print('\nTest set Accuracy: {:.1f}%\n'.format(test_acc))
-        #TODO: Store train_acc and test_acc in an array to plot later.
-        
-    torch.save(model.state_dict(), "mnist_cnn.pt")
+        test_acc_list.append(test_acc_list)
 
-    #TODO: Plot train and test accuracy vs epoch
+    torch.save(model.state_dict(), "mnist_cnn.pt")
+    #Plot train and test accuracy vs epoch
+    plt.figure("Train and Test Accuracy vs Epoch")
+    plt.plot(epoch_list, train_acc_list, c='r', label="Train accuracy")
+    plt.plot(epoch_list, test_acc_list, c='g', label="Test Accuracy")
+    plt.ylabel("Accuracy")
+    plt.xlabel("Number of Epochs")
+    plt.legend(loc=1)
 
 
 if __name__ == '__main__':
