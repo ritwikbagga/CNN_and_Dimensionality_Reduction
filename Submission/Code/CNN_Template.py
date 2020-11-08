@@ -13,18 +13,40 @@ class ConvNet(nn.Module):
     def __init__(self):
         super(ConvNet, self).__init__()
         #initialise here
+        self.conv1 = nn.Conv2d(in_channels= 1, out_channel= 32, kernel_size=3 , Stride= 1 , Padding= 0)
+
+        self.conv2 = nn.Conv2d(in_channels= 32, out_channel= 64 , kernel_size=3, Stride= 1 , Padding= 0)
+
+        self.MaxPool2D = nn.MaxPool2d(kernel_size=2,  Stride=2, Padding=0)
+
+        self.mp_drop = nn.Dropout2d(p=0.25)
+
+        self.fc1 = nn.Linear()
+
+        self.fc1_drop = nn.Dropout2d(p=0.5)
+
+        self.fc2 = nn.Linear()
 
 
 
     def forward(self, x):
-        # TODO: define the forward pass of the network using the layers you defined in constructor
+        #define the forward pass of the network using the layers you defined in constructor
+        x = F.relu(self.conv1(x))
+        x = F.relu(self.conv2(x))
+        x = self.MaxPool2D(x)
+        x= self.mp_drop(x)
+        x = x.reshape(x.size(0), -1) #flatten
+        x = F.relu(self.fc1(x))
+        x= self.fc1_drop(x)
+        x= self.fc2(x)
+        return x
+
+
 
 
 def train(model, device, train_loader, optimizer, epoch):
-    #train here
     model.train()
     correct = 0
-    #correct is here
     for batch_idx, (data, target) in enumerate(train_loader):
         data, target = data.to(device), target.to(device)
         optimizer.zero_grad()
@@ -57,18 +79,18 @@ def main():
     torch.manual_seed(1)
     np.random.seed(1)
     # Training settings
-    use_cuda = True # Switch to False if you only want to use your CPU
+    use_cuda = False # Switch to False if you only want to use your CPU
     learning_rate = 0.01
     NumEpochs = 10
     batch_size = 32
 
     device = torch.device("cuda" if use_cuda else "cpu")
 
-    train_X = np.load('Data/X_train.npy')
-    train_Y = np.load('Data/y_train.npy')
+    train_X = np.load('../Data/X_train.npy')
+    train_Y = np.load('../Data/y_train.npy')
 
-    test_X = np.load('Data/X_test.npy')
-    test_Y = np.load('Data/y_test.npy')
+    test_X = np.load('../Data/X_test.npy')
+    test_Y = np.load('../Data/y_test.npy')
 
     train_X = train_X.reshape([-1,1,28,28]) # the data is flatten so we reshape it here to get to the original dimensions of images
     test_X = test_X.reshape([-1,1,28,28])
