@@ -3,10 +3,20 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #Load data
-X = np.load('Data/X_train.npy')
-Y = np.load('Data/y_train.npy')
-#%% Plotting mean of the whole dataset
+X = np.load('../../Data/X_train.npy')
+Y = np.load('../../Data/y_train.npy')
 
+plt.imshow((X[500]).reshape(28,28))
+print(Y[500])
+plt.show()
+#print(Y[0])
+
+#%% Plotting mean of the whole dataset
+# plt.title("Data mean")
+# m = np.mean(X.T,axis=1).reshape(28,28)
+# plt.imshow( m )
+# plt.show()
+# print("pass")
 #%% Plotting each digit
 
 #%% Center the data (subtract the mean)
