@@ -9,15 +9,21 @@ import numpy as np
 import torch.utils.data as utils
 
 # The parts that you should complete are designated as TODO
+
+
+
+
+
+
 class ConvNet(nn.Module):
     def __init__(self):
         super(ConvNet, self).__init__()
         #initialise here
-        self.conv1 = nn.Conv2d(in_channels= 1, out_channels= 32, kernel_size=3 , stride= 1 , padding= 0)
+        self.conv1 = nn.Conv2d(in_channels= 1, out_channels= 32, kernel_size=(3,3) , stride= (1,1) , padding= 0)
 
-        self.conv2 = nn.Conv2d(in_channels= 32, out_channels= 64 , kernel_size=3, stride= 1 , padding= 0)
+        self.conv2 = nn.Conv2d(in_channels= 32, out_channels= 64 , kernel_size=(3,3), stride= (1,1) , padding= 0)
 
-        self.MaxPool2D = nn.MaxPool2d(kernel_size=2,  stride=2, padding=0)
+        self.MaxPool2D = nn.MaxPool2d(kernel_size=2,  stride=(2,2), padding=0)
 
         self.mp_drop = nn.Dropout2d(p=0.25)
 
@@ -35,7 +41,8 @@ class ConvNet(nn.Module):
         x = F.relu(self.conv2(x))
         x = self.MaxPool2D(x)
         x= self.mp_drop(x)
-        x = x.reshape(x.size(0), -1) #flatten
+       # x = x.reshape(x.size(0), -1) #flatten
+        x= torch.flatten(x,1)
         x = F.relu(self.fc1(x))
         x= self.fc1_drop(x)
         x= self.fc2(x)
@@ -83,6 +90,49 @@ def main():
     learning_rate = 0.01
     NumEpochs = 10
     batch_size = 32
+
+
+
+    # self.MaxPool2D = nn.MaxPool2d(kernel_size=2, stride=(2, 2), padding=0)
+    #
+    # self.mp_drop = nn.Dropout2d(p=0.25)
+    #
+    # self.fc1 = nn.Linear(64 * 12 * 12, 128)
+    #
+    # self.fc1_drop = nn.Dropout2d(p=0.5)
+    #
+    # self.fc2 = nn.Linear(128, 10)
+
+    print("-----------------NUMBER OF PARAMETERS--------")
+
+    print("conv1")
+    conv1 = torch.nn.Sequential(torch.nn.Conv2d(in_channels= 1, out_channels= 32, kernel_size=(3,3) , stride= (1,1) , padding= 0))
+    for param in conv1.parameters():
+        print(param.shape)
+    print("----------------------")
+    print("conv2")
+    conv2 = torch.nn.Sequential(torch.nn.Conv2d(in_channels=32, out_channels=64, kernel_size=(3, 3), stride=(1, 1), padding=0))
+    for param in conv2.parameters():
+        print(param.shape)
+    print("----------------------")
+    print("MaxPool2D")
+    mp2d = torch.nn.Sequential(torch.nn.MaxPool2d(kernel_size=(2,2), stride=(2, 2), padding=0))
+    for param in mp2d.parameters():
+        print(param.shape)
+    print("----------------------")
+
+    print("FC1")
+    fc1 = torch.nn.Sequential(torch.nn.Linear(64 * 12 * 12, 128))
+    for param in fc1.parameters():
+        print(param.shape)
+    print("----------------------")
+
+    print("FC2")
+    fc2 = torch.nn.Sequential(torch.nn.Linear(128, 10))
+    for param in fc2.parameters():
+        print(param.shape)
+
+    breakpoint()
 
     device = torch.device("cuda" if use_cuda else "cpu")
 
