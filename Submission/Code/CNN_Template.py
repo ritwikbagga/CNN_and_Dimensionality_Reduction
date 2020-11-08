@@ -13,19 +13,19 @@ class ConvNet(nn.Module):
     def __init__(self):
         super(ConvNet, self).__init__()
         #initialise here
-        self.conv1 = nn.Conv2d(in_channels= 1, out_channel= 32, kernel_size=3 , Stride= 1 , Padding= 0)
+        self.conv1 = nn.Conv2d(in_channels= 1, out_channels= 32, kernel_size=3 , stride= 1 , padding= 0)
 
-        self.conv2 = nn.Conv2d(in_channels= 32, out_channel= 64 , kernel_size=3, Stride= 1 , Padding= 0)
+        self.conv2 = nn.Conv2d(in_channels= 32, out_channels= 64 , kernel_size=3, stride= 1 , padding= 0)
 
-        self.MaxPool2D = nn.MaxPool2d(kernel_size=2,  Stride=2, Padding=0)
+        self.MaxPool2D = nn.MaxPool2d(kernel_size=2,  stride=2, padding=0)
 
         self.mp_drop = nn.Dropout2d(p=0.25)
 
-        self.fc1 = nn.Linear()
+        self.fc1 = nn.Linear(64*12*12,128)
 
         self.fc1_drop = nn.Dropout2d(p=0.5)
 
-        self.fc2 = nn.Linear()
+        self.fc2 = nn.Linear(128, 10)
 
 
 
@@ -86,11 +86,11 @@ def main():
 
     device = torch.device("cuda" if use_cuda else "cpu")
 
-    train_X = np.load('../Data/X_train.npy')
-    train_Y = np.load('../Data/y_train.npy')
+    train_X = np.load('../../Data/X_train.npy')
+    train_Y = np.load('../../Data/y_train.npy')
 
-    test_X = np.load('../Data/X_test.npy')
-    test_Y = np.load('../Data/y_test.npy')
+    test_X = np.load('../../Data/X_test.npy')
+    test_Y = np.load('../../Data/y_test.npy')
 
     train_X = train_X.reshape([-1,1,28,28]) # the data is flatten so we reshape it here to get to the original dimensions of images
     test_X = test_X.reshape([-1,1,28,28])
@@ -109,7 +109,7 @@ def main():
     test_loader = utils.DataLoader(test_dataset) # create your dataloader if you get a error when loading test data you can set a batch_size here as well like train_dataloader
 
     model = ConvNet().to(device)
-    optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+    optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=0.0001)
     train_acc_list = []
     test_acc_list = []
     epoch_list= []
@@ -120,7 +120,9 @@ def main():
         print('\nTrain set Accuracy: {:.1f}%\n'.format(train_acc))
         test_acc = test(model, device, test_loader)
         print('\nTest set Accuracy: {:.1f}%\n'.format(test_acc))
-        test_acc_list.append(test_acc_list)
+        test_acc_list.append(test_acc)
+
+
 
     torch.save(model.state_dict(), "mnist_cnn.pt")
     #Plot train and test accuracy vs epoch
@@ -129,7 +131,8 @@ def main():
     plt.plot(epoch_list, test_acc_list, c='g', label="Test Accuracy")
     plt.ylabel("Accuracy")
     plt.xlabel("Number of Epochs")
-    plt.legend(loc=1)
+    plt.legend(loc=0)
+    plt.show()
 
 
 if __name__ == '__main__':
