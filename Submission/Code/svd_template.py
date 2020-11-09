@@ -16,7 +16,6 @@ def SVD(A, s, k):
     for i in range(s):
         j = np.random.choice(range(n),p=probs)
         S[i] = A[j,:]
-
     # TODO: Calculate SS^T
     sst = np.matmul(S, S.T)    #s,m * m,s
     # TODO: Compute SVD for SS^T
@@ -52,20 +51,30 @@ def main():
     sub_optimal_approx = np.matmul(np.matmul(A, H), H.T)
 
     #To DO: Generate plots for original image, optimal k-rank and sub-optimal k rank approximation
-    plt.title("Original Image")
-    plt.imshow(A)
-    plt.show()
-    plt.savefig('../Figures/Orignal_Image.png')
+    # plt.title("Original Image")
+    # plt.imshow(A)
+    # plt.show()
+    # plt.savefig('../Figures/Orignal_Image.png')
+    #
+    # plt.title("Optimal K Rank Image")
+    # plt.imshow(optimal_approx)
+    # plt.show()
+    # plt.savefig('../Figures/Optimal_K_Rank_approximation.png')
+    #
+    # plt.title("Sub-Optimal K Rank Image")
+    # plt.imshow(sub_optimal_approx)
+    # plt.show()
+    # plt.savefig('../Figures/Sub-Optimal_K_Rank.png')
+    plts = [A, optimal_approx, sub_optimal_approx]
+    plot_names= ["Orignal_Image","Optimal_K_Rank_approximation" , "Sub-Optimal_K_Rank" ]
 
-    plt.title("Optimal K Rank Image")
-    plt.imshow(optimal_approx)
+    fig, axs = plt.subplots(nrows=1, ncols=3, figsize=(15, 15))
+    axs = axs.flatten()
+    fig.suptitle("Baboon Original and Reconstructed Images")
+    for index, value in enumerate(axs):
+        value.imshow(plts[index])
+        value.set_title(plot_names[index])
     plt.show()
-    plt.savefig('../Figures/Optimal_K_Rank_approximation.png')
-
-    plt.title("Sub-Optimal K Rank Image")
-    plt.imshow(sub_optimal_approx)
-    plt.show()
-    plt.savefig('../Figures/Sub-Optimal_K_Rank.png')
 
 
 

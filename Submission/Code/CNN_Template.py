@@ -166,6 +166,7 @@ def main():
     plt.xlabel("Number of Epochs")
     plt.legend(loc=0)
     plt.show()
+    plt.savefig('../Figures/Train_Test_Acc_Q1.2.b.png')
 
 
 if __name__ == '__main__':
