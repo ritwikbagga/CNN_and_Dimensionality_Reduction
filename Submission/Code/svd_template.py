@@ -28,7 +28,7 @@ def SVD(A, s, k):
         h_i = STwt / np.linalg.norm(STwt, ord=2)
         H[i]=h_i
     lam2 = sorted(lam2, reverse=True)
-    lam2[:k]
+    lam2= lam2[:k]
     # Return matrix H and top-k singular values sigma
     return H.T, lam2
 
@@ -52,17 +52,20 @@ def main():
     sub_optimal_approx = np.matmul(np.matmul(A, H), H.T)
 
     #To DO: Generate plots for original image, optimal k-rank and sub-optimal k rank approximation
+    plt.title("Original Image")
     plt.imshow(A)
     plt.show()
     plt.savefig('../Figures/Orignal_Image.png')
 
+    plt.title("Optimal K Rank Image")
     plt.imshow(optimal_approx)
     plt.show()
     plt.savefig('../Figures/Optimal_K_Rank_approximation.png')
 
+    plt.title("Sub-Optimal K Rank Image")
     plt.imshow(sub_optimal_approx)
     plt.show()
-    plt.savefig('../Figures/Sub-Orignal_Image.png')
+    plt.savefig('../Figures/Sub-Optimal_K_Rank.png')
 
 
 
