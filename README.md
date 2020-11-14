@@ -23,3 +23,6 @@ We will:
 2) Display the sample mean of the dataset as an image
 3) Display the top 5 eigenvectors as images
 4) Project your dataset on the first and second principal components 
+
+Dataset as a scatter plot using PCA
+![Scatter plot](https://github.com/ritwikbagga/CNN_and_Dimensionality_Reduction/blob/master/Figures/Q3.4_scatterPlot.png)
