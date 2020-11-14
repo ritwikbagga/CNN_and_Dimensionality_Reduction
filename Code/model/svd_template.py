@@ -74,6 +74,7 @@ def main():
     for index, value in enumerate(axs):
         value.imshow(plts[index])
         value.set_title(plot_names[index])
+    plt.savefig('../../Figures/Reconstructed_Images.png')
     plt.show()
 
 
