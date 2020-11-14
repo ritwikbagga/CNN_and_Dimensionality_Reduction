@@ -13,7 +13,7 @@ We were able to get a ACC of 94% on training set and 93% on test set
 # 2) Singular Value Decomposition
 we have tried optimal k rank approximation and also implemented a sub-optimal k rank approximation to have important computational savgings. 
 We have used a picture of a Babboon (X) and tried to reconstruct the images- optimal  and sub-optimal 60 rank approximations using SVD. 
-
+![images](https://github.com/ritwikbagga/CNN_and_Dimensionality_Reduction/blob/master/Figures/Reconstructed_Images.png)
 
   
   
