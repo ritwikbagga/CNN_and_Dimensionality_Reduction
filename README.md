@@ -4,6 +4,7 @@
 we will use MNIST dataset of handwritten digits containing 10 classes (digits 0-9). Each digit is a 28X28 pixel image, and we will use CNN to classify each one of them. 
 The model we have used is made of 2 convolutional layers(activation- ReLu) followed by a maxpool2d layer and then we use a fully connected linear lear. 
 The model we have used is made of 2 convolutional layers(activation- ReLu) followed by a maxpool2d layer and then we use two fully connected Linear layers with first linear layer having activation as Re (activation- ReLu) and use a Linear layer again(activation-Softmax).
+
 Results- 
 We were able to get a ACC of 94% on training set and 93% on test set 
 
@@ -13,8 +14,7 @@ We were able to get a ACC of 94% on training set and 93% on test set
 we have tried optimal k rank approximation and also implemented a sub-optimal k rank approximation to have important computational savgings. 
 We have used a picture of a Babboon (X) and tried to reconstruct the images- optimal  and sub-optimal 60 rank approximations using SVD. 
 
-![](https://github.com/i-saumitra/Voice-controlled-MP3-Player/blob/master/screenshot.jpg)
-   
+
   
   
 # 3) Principle Component Analysis (MNIST dataset of handwritten digits)
